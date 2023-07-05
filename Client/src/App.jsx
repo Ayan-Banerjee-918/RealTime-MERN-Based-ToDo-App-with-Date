@@ -1,9 +1,16 @@
-function App() {
+import { Routes,Route } from 'react-router-dom'
+import { Home } from './Components'
+import {Layout} from './Components/Layout'
+
+const App = () => {
   return (
     <>
-      <h1 className=" text-5xl font-bold underline text-red-400">Vite with Tailwind</h1>
+      <Routes>
+        <Route path='/' element={<Layout/>}>
+          <Route index element={<Home/>}/>
+        </Route>
+      </Routes>
     </>
   )
 }
-
 export default App
