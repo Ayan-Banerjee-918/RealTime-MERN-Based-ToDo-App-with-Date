@@ -1,5 +1,10 @@
 # ToDo-App
 
+![GitHub repo size](https://img.shields.io/github/repo-size/Ayan-Banerjee-918/ToDo-App-with-Date-Filtering-MERN?style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Ayan-Banerjee-918/ToDo-App-with-Date-Filtering-MERN?style=for-the-badge&color=%237b26d1)
+![GitHub](https://img.shields.io/github/license/Ayan-Banerjee-918/ToDo-App-with-Date-Filtering-MERN?style=for-the-badge&color=orange)
+[![Hits](https://hits.sh/github.com/Ayan-Banerjee-918/ToDo-App-with-Date-Filtering-MERN.svg?style=for-the-badge&label=VIEWS&extraCount=18)](https://hits.sh/github.com/Ayan-Banerjee-918/ToDo-App-with-Date-Filtering-MERN/)
+
 This is a web-based To - Do application developed as a software engineering project for the MERN course.
 
 # Technical Details
