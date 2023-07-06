@@ -10,13 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
+    "@reduxjs/toolkit": "^1.9.5",
+    "buffer": "^6.0.3",
+    "crypto-js": "^4.1.1",
+    "cryptojs": "^2.5.3",
     "dayjs": "^1.11.9",
     "react": "^18.2.0",
     "react-calendar": "^4.3.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.1",
-    "react-tailwindcss-datepicker": "^1.6.3"
+    "react-tailwindcss-datepicker": "^1.6.3",
+    "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",

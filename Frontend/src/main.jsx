@@ -4,8 +4,18 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import './index.css'
 
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+
+const store = createStore(()=>({
+  API_BASE: 'http://10.243.145.219:8080/todo/',
+  isLoggedIn: null
+}))
+
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <Provider store={store}>
   <BrowserRouter>
     <App />
   </BrowserRouter>
+  </Provider>
 )
