@@ -13,7 +13,7 @@ The project is written almost entirely in javascript, both the frontend and the 
 
 The databases use MongoDB as the backend.
 
-## MERN Stack
+## :man_technologist: MERN Stack
 MERN stands for MongoDB, Express, React, Node, after the four key technologies that make up the stack.
 
 MongoDB — document database
