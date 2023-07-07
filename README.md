@@ -1,4 +1,4 @@
-# ToDo-App
+# Realtime-ToDo-App
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Ayan-Banerjee-918/ToDo-App-with-Date-Filtering-MERN?style=for-the-badge)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Ayan-Banerjee-918/ToDo-App-with-Date-Filtering-MERN?style=for-the-badge&color=%237b26d1)
