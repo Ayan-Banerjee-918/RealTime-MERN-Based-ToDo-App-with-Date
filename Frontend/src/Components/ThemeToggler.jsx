@@ -29,9 +29,9 @@ const ThemeToggler = () => {
     return (
         <div>
         {isDark ?
-        (<SunIcon onClick={()=>{setIsDark(false); toggleTheme(false)}} className="h-6 w-6 text-slate-500 dark:text-slate-400 transition-all ease-in-out duration-400" aria-hidden="true"/>)
+        (<SunIcon onClick={()=>{setIsDark(false); toggleTheme(false)}} className="h-8 w-8 text-slate-500 dark:text-slate-400 hover:fill-slate-400 transition-all ease-in-out duration-400" aria-hidden="true"/>)
         :
-        (<MoonIcon onClick={()=>{setIsDark(true); toggleTheme(true)}} className="h-6 w-6 text-slate-500 dark:text-slate-400  transition-all ease-in-out duration-400" aria-hidden="true"/>)
+        (<MoonIcon onClick={()=>{setIsDark(true); toggleTheme(true)}} className="h-6 w-6 text-slate-500 dark:text-slate-400  hover:fill-slate-500 transition-all ease-in-out duration-400" aria-hidden="true"/>)
         }
         </div>
     )

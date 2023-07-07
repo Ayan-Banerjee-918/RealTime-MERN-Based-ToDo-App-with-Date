@@ -15,14 +15,13 @@ const TaskAdd = (props) => {
 
     const handleTitleChange = (e) => {
         setTitle(e.target.value)
-        console.log(title) //addTask function ta kothai re?
     }
 
     const onFormSubmit = (e) => {
-        e.preventDefault()
-        console.log(value.startDate)
+        e.preventDefault();
         if (title == '' || value.startDate == '' || value.startDate == null) return
         props.addTask(title, value)
+        e.target.reset();
     }
 
     const today = new Date()
@@ -36,7 +35,7 @@ const TaskAdd = (props) => {
             <div className={`container w-4 h-4 rounded-full inline-block border-2 border-solid border-slate-700 dark:border-slate-400`}>
             </div>
             <div className="w-4/5 flex-col flex">
-                <input className="w-full bg-inherit focus:outline-none text-amber-800 dark:text-slate-200 dark:placeholder:text-slate-300 font-medium" placeholder="Add Task" type="text" name="task" onChange={handleTitleChange}/>
+                <input className="px-2 py-2 w-full bg-inherit focus:outline-none text-amber-800 dark:text-slate-200 dark:placeholder:text-slate-300 font-medium rounded-md justify-self-stretch" placeholder="Add Task" type="text" name="task" onChange={handleTitleChange}/>
             </div>
         </div>
         <div className="container flex flex-wrap space-x-4 items-center w-fit">
@@ -75,7 +74,7 @@ const TaskAdd = (props) => {
                 }
                 />
         </div>
-        <button type='submit' hidden>Add Task</button>
+        <button type='submit' className="px-6 py-2 border border-solid rounded-lg bg-slate-200 dark:bg-slate-700 font-medium text-sm text-slate-600 dark:text-slate-200 hover:border-slate-400 dark:border-slate-500 dark:hover:border-slate-400 transition-all duration-300">Save</button>
     </form>
     </>
     )

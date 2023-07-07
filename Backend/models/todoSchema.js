@@ -7,11 +7,11 @@ const taskSchema = new mongoose.Schema({
     },
     task_due:{
         type : Date, 
-        required : true,
+        required : true
     },
     is_complete: {
         type : Boolean,
-        required : true,
+        default : false
     },
     user_id: {
         type: String,
