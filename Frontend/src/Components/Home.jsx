@@ -34,7 +34,7 @@ const transitionListItem = styled.div`
 const socket = io.connect(import.meta.env.VITE_API_URL);
 
 const Home = () => {    
-    const API_BASE = useSelector(state => state.API_BASE);  
+    const API_BASE = useSelector(state => state.API_BASE)+'todo/';  
 
     const getTodos = async (url) => {
         await fetch(url)
