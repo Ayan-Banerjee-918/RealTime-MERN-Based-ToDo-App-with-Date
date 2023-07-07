@@ -6,10 +6,10 @@ import './index.css'
 
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-
+console.log(import.meta.env.VITE_API_URL);
 const store = createStore(()=>({
-  API_BASE: 'http://10.243.145.219:8080/todo/',
-  isLoggedIn: null
+  API_BASE: import.meta.env.VITE_API_URL + 'todo/',
+  isLoggedIn: false
 }))
 
 ReactDOM.createRoot(document.getElementById('root')).render(

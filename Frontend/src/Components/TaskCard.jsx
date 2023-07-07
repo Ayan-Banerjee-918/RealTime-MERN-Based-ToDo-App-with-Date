@@ -8,7 +8,6 @@ const TaskCard = (props) => {
     const formatDate = (date) => {
         return `${new Date(date).toLocaleDateString('en-gb', {day:'numeric'})} ${new Date(date).toLocaleDateString('en-gb', {month:'short'})}, ${new Date(date).toLocaleDateString('en-gb', {year:'numeric'})}`;
     }
-    console.log(formatDate(today));
 
     if (formatDate(today) == formatDate(dueDate)) {
         dueDate = 'Today';

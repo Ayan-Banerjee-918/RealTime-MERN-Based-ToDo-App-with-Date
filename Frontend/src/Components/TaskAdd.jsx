@@ -22,6 +22,7 @@ const TaskAdd = (props) => {
         if (title == '' || value.startDate == '' || value.startDate == null) return
         props.addTask(title, value)
         e.target.reset();
+        setValue({startDate:null,endDate:null});
     }
 
     const today = new Date()

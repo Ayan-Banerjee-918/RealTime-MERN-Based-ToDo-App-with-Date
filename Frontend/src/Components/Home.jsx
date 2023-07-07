@@ -6,6 +6,7 @@ import { useState,useEffect,React } from 'react'
 import { useSelector } from 'react-redux'
 import {CSSTransition, TransitionGroup} from "react-transition-group"
 import styled from 'styled-components'
+import io from 'socket.io-client';
 
 const transitionListItem = styled.div`
 .transition-enter {
@@ -30,12 +31,15 @@ const transitionListItem = styled.div`
 	transition: all 300ms ease;
 }
 `
+const socket = io.connect(import.meta.env.VITE_API_URL);
 
 const Home = () => {    
-    const API_BASE = useSelector(state => state.API_BASE);   
+    const API_BASE = useSelector(state => state.API_BASE);  
+
     const getTodos = async (url) => {
         await fetch(url)
-            .then(res => res.json())
+            .then(res => {
+               return res.json()})
             .then(data => setTodos(data));
         setIsLoading(false)
     }
@@ -46,6 +50,12 @@ const Home = () => {
     useEffect(() => {
         getTodos(API_BASE);
     }, []);
+    
+    useEffect(() => {
+        socket.on("received_todo", () => {
+            getTodos(API_BASE);
+        })
+    }, [socket]);
     
     const addTaskCallback = async (title, due) => {
         const data=await fetch(API_BASE, {
@@ -60,25 +70,28 @@ const Home = () => {
             })
         }).then(res => res.json());
         setTodos([data, ...todos]);
+        socket.emit("todo_change", todos);
     }
    
     const onDeleteTask = async (id) => {
         await fetch(API_BASE + id, { method: "DELETE" })
             .then(res => res.json());
         getTodos(API_BASE);
+        socket.emit("todo_change", todos);
     }
 
     const toggleComplete = async (id) => {
         await fetch(API_BASE + 'completeTask/' + id, { method: "PUT",
         }).then(res => res.json());
         getTodos(API_BASE);
+        socket.emit("todo_change", todos);
     }
 
     const pending = todos.filter((t)=>!t.is_complete)
     const completed = todos.filter((t)=>t.is_complete)
 
     return (
-        <div className='antialiased min-h-screen h-full dark:bg-slate-900 transition-[background-color] duration-800 relative'>
+        <div className='antialiased min-h-screen h-full bg-slate-50 dark:bg-slate-900 transition-[background-color] duration-800 relative'>
             <div className=''>
                 <div className='max-w-[1100px] w-full mx-auto py-8'>
                     <h1 className='font-semibold text-2xl text-slate-800 dark:text-slate-200'>Tasks</h1>

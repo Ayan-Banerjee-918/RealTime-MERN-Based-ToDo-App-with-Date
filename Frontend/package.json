@@ -24,6 +24,7 @@
     "react-router-dom": "^6.14.1",
     "react-tailwindcss-datepicker": "^1.6.3",
     "react-transition-group": "^4.4.5",
+    "socket.io-client": "^4.7.1",
     "styled-components": "^6.0.2"
   },
   "devDependencies": {

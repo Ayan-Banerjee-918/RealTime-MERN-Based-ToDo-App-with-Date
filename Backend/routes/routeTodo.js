@@ -31,7 +31,7 @@ router.put("/:id", async (req, res) => {
 
 router.put("/completeTask/:id" , async (req,res) => {
     const todo = await Todo.findById(req.params.id);
-    todo.is_complete = ! todo.is_complete;
+    todo.is_complete = !todo.is_complete;
     todo.save();
     res.json(todo);
 })
