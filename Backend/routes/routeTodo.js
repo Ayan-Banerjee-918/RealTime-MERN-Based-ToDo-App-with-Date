@@ -1,21 +1,38 @@
 const express = require('express');
 const router = express.Router();
-
 const Todo = require('../models/todoSchema');
+const jwt = require('jsonwebtoken')
+
+function authenticateToken(req, res, next) {
+	const authHeader = req.headers['authorization']
+	const token = authHeader && authHeader.split(' ')[1]
+  
+	if (token == null) return res.sendStatus(401)
+	jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+	  console.log(err)
+  
+	  if (err) return res.sendStatus(403)
+  
+	  req.user = user
+  
+	  next()
+	})
+  }
 
 router.get("/", async (req, res) => {
     const todos = await Todo.find();
     res.json(todos);
 })
 
-router.post("/", (req, res) => {
-    const todo = new Todo({
-        task_desc: req.body.task_desc,
-        task_due: req.body.task_due,
-        is_complete: req.body.is_complete,
-        user_id: req.body.user_id
-    });
-    todo.save();
+router.post("/", authenticateToken, (req, res) => {
+    console.log(req.user)
+    // const todo = new Todo({
+    //     task_desc: req.body.task_desc,
+    //     task_due: req.body.task_due,
+    //     is_complete: req.body.is_complete,
+    //     user_id: req.body.user_id
+    // });
+    // todo.save();
     res.json(todo);
 })
 

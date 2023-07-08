@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/userSchema');
 const hashPass = require('../utility/hashPass');
+const jwt = require('jsonwebtoken');
 
 router.get("/", async (req, res) => {
     const users = await User.find();
@@ -10,16 +11,23 @@ router.get("/", async (req, res) => {
 })
 
 router.post("/register", async (req, res) => {
-    try {
-        const newPassword = await hashPass.generateHash(req.body.password);
-		await User.create({
-			username: req.body.username,
-			password: newPassword,
-		})
-    }
-    catch (err){
-        err.json({ status: 'error', error: 'Duplicate username' })
-    }
+
+	if (/^(?![_0-9]+$)[\w]{4,}$/.test(req.body.username) && req.body.password.length >= 8) {
+		try {
+			const newPassword = await hashPass.generateHash(req.body.password);
+			await User.create({
+				username: req.body.username,
+				password: newPassword,
+			})
+			res.sendStatus(201);
+		}
+		catch (err) {
+			res.sendStatus(401);
+		}
+	}
+	else {
+		res.sendStatus(402);
+	}
 })
 
 router.post("/login", async (req, res) => {
@@ -27,7 +35,7 @@ router.post("/login", async (req, res) => {
 		username: req.body.username,
 	})
 	if (!user) {
-		return { status: 'error', error: 'Invalid login' }
+		return res.sendStatus(402)
 	}
 	const isPasswordValid = await hashPass.checkValidity(
 		req.body.password,
@@ -36,14 +44,14 @@ router.post("/login", async (req, res) => {
 	if (isPasswordValid) {
 		const token = jwt.sign(
 			{
+				exp: Math.floor(Date.now() / 1000) + (60 * 60),
 				name: user.name,
-				email: user.email,
 			},
 			process.env.SECRET_JWT_PASS
 		)
-		return res.json({ status: 'ok', user: token })
+		return res.status(200).send({ token: token })
 	} else {
-		return res.json({ status: 'error', user: false })
+		return res.sendStatus(403);
 	}
 })
 

@@ -10,6 +10,8 @@ import { createStore } from 'redux'
 const store = createStore(()=>({
   API_BASE: import.meta.env.VITE_API_URL, 
   isLoggedIn: false, 
+  username: null,
+  token: localStorage.token
 }))
 
 ReactDOM.createRoot(document.getElementById('root')).render(
