@@ -22,8 +22,13 @@ function authenticateToken(req, res, next) {
 router.get("/", authenticateToken, async (req, res) => {
     if (!req.user.name) return
 
-    const todos = await Todo.find({ username: req.user.name });
-    res.json(todos);
+    const missedTodos = await Todo.find({ username: req.user.name }).find({ task_due: { $lt: new Date().setHours(0, 0, 0, 0) } }).sort({ task_due: -1 });
+    const newTodos = await Todo.find({ username: req.user.name }).sort({ task_due: -1 });
+    const mTodo = new Set(missedTodos.map(({ id }) => id));
+    res.json([
+        ...newTodos.filter(({ id }) => !mTodo.has(id)),
+        ...missedTodos
+    ]);
 })
 
 router.post("/", authenticateToken, (req, res) => {
