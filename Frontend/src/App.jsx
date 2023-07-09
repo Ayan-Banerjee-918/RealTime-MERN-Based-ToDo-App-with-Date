@@ -17,9 +17,10 @@ const getInitialTheme = () => {
 }
 
 const App = () => {
+
   useEffect(() => {
     getInitialTheme()
-  })
+  },[])
 
   return (
     <>
@@ -27,15 +28,13 @@ const App = () => {
       gutter={2}
       toastOptions={
         {
-          className: 'text-sm dark:bg-slate-800 dark:text-slate-300',
+          className: 'text-sm dark:bg-slate-800 dark:text-slate-300 text-slate-500',
       }}/>
       <Routes>
         <Route path='/' element={<Layout/>}>
-          <Route index element={<Home/>}/>
-        </Route>
-        <Route path='/login' element={<Login/>}>
-        </Route>
-        <Route path='/signup' element={<Signup/>}>
+          <Route index element={<Home />} />
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/signup' element={<Signup/>}/>
         </Route>
       </Routes>
     </>

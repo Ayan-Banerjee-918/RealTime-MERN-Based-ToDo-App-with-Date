@@ -4,13 +4,14 @@ import { UserCircleIcon, UserIcon, ArrowRightOnRectangleIcon, ArrowLeftOnRectang
 import { useSelector } from 'react-redux'
 import {Link} from 'react-router-dom'
 
-export default function Dropdown() {
-  const isLoggedIn = useSelector(state=>state.isLoggedIn)
+export default function Dropdown(props) {
+  const username = useSelector(state => state.user.username)
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn)
   return (
     <div className="font-medium">
       <Menu as="div" className="relative inline-block text-left">
-        <div>
-          <Menu.Button className="inline-flex w-full justify-center rounded-md px-4 py-2 text-sm font-medium text-white">
+        <div className='mt-1'>
+          <Menu.Button className="inline-flex w-full justify-center rounded-xl px-1 ml-1 text-sm font-medium text-white">
           <UserCircleIcon className="h-10 w-10 text-slate-400 dark:text-slate-300 hover:text-slate-500 dark:hover:text-slate-100 transition-all duration-300" aria-hidden="true" />
           </Menu.Button>
         </div>
@@ -23,7 +24,7 @@ export default function Dropdown() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-1 w-56 origin-top-right divide-y divide-gray-100 bg-slate-100 dark:bg-slate-800 border border-solid dark:border-slate-600 rounded-lg px-1 py-1 focus:outline-none z-50">
+          <Menu.Items className="absolute right-0 mt-1 w-56 origin-top-right divide-y divide-gray-100 bg-slate-200 dark:bg-slate-800 border border-solid dark:border-slate-600 rounded-lg px-1 py-1 focus:outline-none z-50">
             <div className="px-1 py-1 ">
               {isLoggedIn ?
               (<>
@@ -45,13 +46,13 @@ export default function Dropdown() {
                         aria-hidden="true"
                       />
                     )}
-                    Indranil Patra
+                    {username}
                   </button>
                 )}
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <button
+                  <button onClick={()=>props.signOut()}
                     className={`${
                       active ? 'bg-red-200 dark:bg-red-900 text-slate-600 dark:text-slate-300' : 'text-slate-500 dark:text-slate-300'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}

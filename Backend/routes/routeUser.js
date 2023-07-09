@@ -5,9 +5,26 @@ const User = require('../models/userSchema');
 const hashPass = require('../utility/hashPass');
 const jwt = require('jsonwebtoken');
 
-router.get("/", async (req, res) => {
-    const users = await User.find();
-    res.json(users);
+const TOKEN_SECRET = process.env.SECRET_JWT_PASS
+
+function authenticateToken(req, res, next) {
+	const authHeader = req.headers['authorization']
+	const token = authHeader && authHeader.split(' ')[1]
+  
+	if (token == null) return res.sendStatus(401)
+	jwt.verify(token, TOKEN_SECRET, (err, user) => {
+	  console.log(err)
+  
+	  if (err) return res.sendStatus(403)
+  
+	  req.user = user
+  
+	  next()
+	})
+  }
+
+router.get("/", authenticateToken, async (req, res) => {
+	res.status(200).send({username: req.user.name})
 })
 
 router.post("/register", async (req, res) => {
@@ -45,14 +62,15 @@ router.post("/login", async (req, res) => {
 		const token = jwt.sign(
 			{
 				exp: Math.floor(Date.now() / 1000) + (60 * 60),
-				name: user.name,
+				name: user.username,
 			},
-			process.env.SECRET_JWT_PASS
+			TOKEN_SECRET
 		)
 		return res.status(200).send({ token: token })
 	} else {
 		return res.sendStatus(403);
 	}
 })
+
 
 module.exports = router;

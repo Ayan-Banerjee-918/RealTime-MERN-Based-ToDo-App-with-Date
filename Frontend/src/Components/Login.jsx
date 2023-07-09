@@ -1,22 +1,63 @@
+import Navbar from './Navbar'
 import success from '../assets/success.png'
 import LoadingIcon from './LoadingIcon'
 import { useEffect } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate, useLocation} from 'react-router-dom'
 import {useState} from 'react'
-import { useSelector } from 'react-redux'
-import toast, {Toaster} from 'react-hot-toast'
+import { useSelector, useDispatch } from 'react-redux'
+import toast from 'react-hot-toast'
+
+import {updateToken, updateUsername, updateLoggedInState} from '../store/userStore'
+
+const localStorageContainsTodos = () => {
+    let local_todos = localStorage.getItem('todos')
+        if(local_todos != null || local_todos != '') {
+            try {
+                local_todos = JSON.parse(local_todos);
+                return local_todos
+            } catch (err) {
+                return null
+            } 
+        }else {
+            return null
+        }
+}
 
 const Login = () => {
 
-    const API_BASE = useSelector((state) => state.API_BASE)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [usernameError, setUsernameError] = useState(false)
     const [passError, setPassError] = useState(false)
     const [userErrorText, setUserErrorText] = useState('')
     const [passErrorText, setPassErrorText] = useState('')
-
     const [loading, setLoading] = useState(false)
+
+    const API_BASE = useSelector((state) => state.user.API_BASE)
+    const redux_token = useSelector((state)=>state.user.token)
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
+    const {state} = useLocation()
+
+    const localStoragetoDB = async (auth_token) => {
+        const local_todos = localStorageContainsTodos()
+        if (local_todos?.length > 0) {
+            await fetch(API_BASE+"todo/addMultiple", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer "+auth_token
+                },
+                body: JSON.stringify(local_todos)
+            }).then(res => {
+                   if (res.status == 201) {
+                    console.log("Synced")
+                    localStorage.removeItem('todos')
+                   } 
+            });
+        }
+    } 
 
     const onUsernameChange = (e) => {
         setUsernameError(false)
@@ -56,7 +97,6 @@ const Login = () => {
                 password: password
             })
         }).then(res => {
-            console.log(res.status)
             const status = res.status
             setLoading(false)
             if (status == 200){
@@ -64,16 +104,29 @@ const Login = () => {
             } else if(status == 402) {
                 setUsernameError(true);
                 setUserErrorText('User not found.');
+                throw new Error(402)
             } else if(status == 403) {
                 setPassError(true);
                 setPassErrorText("Incorrect password.")
+                throw new Error(403)
             } else {
                 toast.error("Something went wrong!");
+                throw new Error("Something went wrong")
             }
-        }).then(res=>{
-            localStorage.token = res.token 
+        }).then(async res=>{
+            toast.success('Logged in successfully.')
+            localStorage.setItem('token', res.token)
+            dispatch(updateToken(res.token))
+            dispatch(updateUsername(username))
+            dispatch(updateLoggedInState(true))
+            await localStoragetoDB(res.token)
+            navigate(state?.path || '/')
+        }).catch((err)=> {
+            console.log("Error: "+err)
         }); 
     }
+
+    
 
     return (
         <div className='antialiased min-h-screen h-full dark:bg-slate-900 transition-[background-color] duration-800 relative bg-slate-200'>
@@ -108,12 +161,17 @@ const Login = () => {
                                     {passErrorText}
                                 </p>
                             </label>
-                            <button type='submit' className="flex justify-center gap-2 mt-4 px-6 py-2 border-2 border-solid rounded-lg border-amber-400 hover:border-amber-500 bg-amber-500 hover:bg-amber-600 dark:bg-[#2f2600] font-semibold text-sm text-slate-50 dark:text-slate-200 dark:border-slate-600 dark:hover:bg-amber-900 dark:hover:border-amber-700 transition-all duration-300">
+                            <div className="flex gap-4 flex-col justify-center">
+                            <button type='submit' className="flex w-full justify-center gap-2 mt-4 px-6 py-2 border-2 border-solid rounded-lg border-amber-400 hover:border-amber-500 bg-amber-500 hover:bg-amber-600 dark:bg-[#A8750F] font-semibold text-sm text-slate-50 dark:text-slate-50 dark:border-[#E8A215] dark:hover:bg-[#694909] dark:hover:border-[#E8A215] transition-all duration-300">
                             {loading ? 
                                 <LoadingIcon color='amber' size="5"/> :
                                 'Log in'
                             }</button>
+                            <Link to="/" className="flex w-full justify-center px-6 py-2 border-2 border-solid rounded-lg border-slate-50 hover:border-slate-300 bg-slate-200 dark:bg-slate-700 font-semibold text-sm text-slate-500 dark:text-slate-200 dark:border-slate-600 dark:hover:bg-slate-600 dark:hover:border-slate-500 transition-all duration-300">
+                                Continue without login
+                            </Link>
                             <Link to="/signup" className='cursor-pointer text-sm text-center  text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'>Sign up</Link>
+                            </div>
                         </form>
                     </div>
                 </div>

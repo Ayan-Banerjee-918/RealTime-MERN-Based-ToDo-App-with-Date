@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import toast, {Toaster} from 'react-hot-toast'
+import Navbar from './Navbar'
 
 const Signup = () => {
 
-    const API_BASE = useSelector((state) => state.API_BASE)
+    const API_BASE = useSelector((state) => state.user.API_BASE)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [confirmpass, setConfirmPass] = useState('')
@@ -80,7 +81,6 @@ const Signup = () => {
                 password: password
             })
         }).then(res => {
-            console.log(res.status)
             const status = res.status
             setLoading(false)
             if (status == 201){
@@ -97,7 +97,7 @@ const Signup = () => {
 
     return (
         <div className='antialiased min-h-screen h-full dark:bg-slate-900 transition-[background-color] duration-800 relative bg-slate-200'>
-                <div className='flex justify-center max-w-[1100px] w-full mx-auto py-8'>
+             <div className='flex justify-center max-w-[1100px] w-full mx-auto py-8'>
                     <div className="mt-20 w-fit container bg-slate-100 rounded-lg px-12 py-7 shadow-lg dark:bg-slate-800">
                         <div className="flex w-full justify-center text-slate-800 dark:text-slate-200 text-lg items-center font-semibold mb-6">
                             T<img src={success} alt="logo"/>do
@@ -141,7 +141,7 @@ const Signup = () => {
                                 </p>
                             </label>
                             
-                            <button type='submit' className="flex justify-center mt-4 px-6 py-2 border-2 border-solid rounded-lg border-amber-400 hover:border-amber-500 bg-amber-500 hover:bg-amber-600 dark:bg-[#2f2600] font-semibold text-sm text-slate-50 dark:text-slate-200 dark:border-slate-600 dark:hover:bg-amber-900 dark:hover:border-amber-700 transition-all duration-300">
+                            <button type='submit' className="flex w-full justify-center gap-2 mt-4 px-6 py-2 border-2 border-solid rounded-lg border-amber-400 hover:border-amber-500 bg-amber-500 hover:bg-amber-600 dark:bg-[#A8750F] font-semibold text-sm text-slate-50 dark:text-slate-50 dark:border-[#E8A215] dark:hover:bg-[#694909] dark:hover:border-[#E8A215] transition-all duration-300">
                             {loading ? 
                                 <LoadingIcon color='amber' size="5"/> :
                                 'Sign up'
