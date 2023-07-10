@@ -79,7 +79,8 @@ const Signup = () => {
             body: JSON.stringify({
                 username: username,
                 password: password
-            })
+            }),
+            credentials: 'include'
         }).then(res => {
             const status = res.status
             setLoading(false)

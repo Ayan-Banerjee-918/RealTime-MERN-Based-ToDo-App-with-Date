@@ -55,7 +55,8 @@ const Login = () => {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer "+auth_token
                 },
-                body: JSON.stringify(local_todos)
+                body: JSON.stringify(local_todos),
+                credentials: 'include'
             }).then(res => {
                    if (res.status == 201) {
                     console.log("Synced")

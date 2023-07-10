@@ -68,6 +68,7 @@ const Home = () => {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer "+auth_token
                 },
+                credentials: 'include'
             }).then(res => {
                 return res.json()})
                 .then(data => setTodos(data));
@@ -98,7 +99,8 @@ const Home = () => {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer "+auth_token
                 },
-                body: JSON.stringify(todo_obj)
+                body: JSON.stringify(todo_obj),
+                credentials: 'include'
             }).then(res => res.json());
             setTodos([...todos, data]);
             getTodos();
@@ -115,7 +117,9 @@ const Home = () => {
             await fetch(API_BASE + id, { method: "DELETE", headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+auth_token
-            }}).then(res => res.json());
+            },
+            credentials: 'include'
+        }).then(res => res.json());
             getTodos();
             socket.emit("todo_change", todos);
         }
@@ -132,7 +136,8 @@ const Home = () => {
             await fetch(API_BASE + 'completeTask/' + id, { method: "PUT",headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+auth_token
-            }
+            },
+            credentials: 'include',
             }).then(res => res.json());
             getTodos();
             socket.emit("todo_change", todos);
@@ -156,7 +161,8 @@ const Home = () => {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer "+auth_token
                 },
-                body: JSON.stringify(todo_obj)
+                body: JSON.stringify(todo_obj),
+                credentials: 'include'
             }).then(res => res.json());
             getTodos();
             socket.emit("todo_change", todos);

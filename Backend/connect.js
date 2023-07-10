@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const routeTodo = require("./routes/routeTodo");
 const routeUser = require("./routes/routeUser");
+const PORT = process.env.PORT || 8080
+
 const app = express();
 
 const { Server } = require('socket.io');
@@ -43,9 +45,9 @@ const connectDatabase = (module.exports = () => {
 app.use("/todo", routeTodo);
 app.use("/user", routeUser);
 
-server.listen(process.env.PORT, () => {
+server.listen(PORT, () => {
     try {
-        console.log('Server running on PORT ' + process.env.PORT);
+        console.log('Server running on PORT ' + PORT);
         connectDatabase();
     } catch (err) {
         console.log('Error : ' + err);
