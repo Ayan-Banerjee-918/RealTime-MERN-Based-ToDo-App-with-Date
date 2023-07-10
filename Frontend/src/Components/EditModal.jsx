@@ -1,6 +1,5 @@
 import { Dialog, Transition , Popover} from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import TaskAdd from './TaskAdd'
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import Datepicker from "react-tailwindcss-datepicker"; 
 
@@ -8,39 +7,43 @@ export default function MyModal(props) {
   let [isOpen, setIsOpen] = useState(false)
   const [title, setTitle] = useState(props.title);
 
-  function closeModal() {
-    setIsOpen(false)
-    // setTitle(props.title)
-    // setValue({startDate: new Date(props.due), endDate: new Date(props.due)})
-  }
-
-  function openModal() {
-    setIsOpen(true)
-  }
-
   const [value, setValue] = useState({ 
     startDate: new Date(props.due),
     endDate: new Date(props.due)
-}); 
+  });
 
-const handleValueChange = (newValue) => {
-    setValue(newValue); 
-} 
+  const closeModal = () => {
+    if (title == '') {
+      setTitle(props.title);
+    }
+    setIsOpen(false)
+  }
 
-const handleTitleChange = (e) => {
+  const openModal = () => {
+    setIsOpen(true)
+    setTitle(props.title);
+    setValue({ startDate: new Date(props.due), endDate: new Date(props.due) });
+  } 
+
+  const handleValueChange = (newValue) => {
+    if(newValue.startDate!=null && newValue.endDate!=null)
+      setValue(newValue); 
+  } 
+
+  const handleTitleChange = (e) => {
     setTitle(e.target.value)
-}
+  }
 
-const onFormSubmit = (e) => {
+  const onFormSubmit = (e) => {
     e.preventDefault();
     if (title == '' || value.startDate == '' || value.startDate == null) return
     if (title === props.title && value.startDate == props.due) return
     props.onUpdate(title, value.startDate, props.id)
-}
+  }
 
-const today = new Date()
-const tomorrow = today.setDate(today.getDate()+1)
-const nextWeek = today.setDate(today.getDate()+6)
+  const today = new Date()
+  const tomorrow = today.setDate(today.getDate()+1)
+  const nextWeek = today.setDate(today.getDate()+6)
 
   return (
     <>
@@ -85,7 +88,7 @@ const nextWeek = today.setDate(today.getDate()+6)
                             <div className={`container w-4 h-4 rounded-full inline-block border-2 border-solid border-slate-700 dark:border-slate-400`}>
                             </div>
                             <div className="w-4/5 flex-col flex">
-                                <input className="px-2 py-2 w-full bg-inherit focus:outline-none text-amber-800 dark:text-slate-200 dark:placeholder:text-slate-300 font-medium rounded-md justify-self-stretch" placeholder="Add Task" type="text" name="task" value={title} onChange={handleTitleChange}/>
+                        <input className="px-2 py-2 w-full bg-inherit focus:outline-none text-amber-800 dark:text-slate-200 dark:placeholder:text-slate-300 font-medium rounded-md justify-self-stretch" placeholder="Edit Task" type="text" name="task" value={title} onChange={handleTitleChange}/>
                             </div>
                         </div>
                         <div className="container flex flex-wrap sm:space-x-4 space-x-1 items-center sm:w-3/5 lg:w-1/5 md:w-2/5 xl:w-fit  w-4/6">

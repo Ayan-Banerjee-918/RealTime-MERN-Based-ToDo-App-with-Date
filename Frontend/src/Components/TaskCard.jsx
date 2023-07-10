@@ -21,7 +21,7 @@ const TaskCard = (props) => {
     }
 
     today.setHours(0, 0, 0, 0);
-    //${props.completed ?'bg-slate-200 dark:bg-slate-700':(new Date(props.due) < new Date()? 'bg-amber-500 dark:bg-red-300':'bg-amber-50 dark:bg-[#2f2600]')} dark:bg-[#2f2600]
+    //dark:bg-[#2f2600]
     return (
     <div className={`container w-full mx-auto ${props.completed ?'bg-slate-200 dark:bg-slate-700':(new Date(props.due) < today ? 'bg-red-100 dark:bg-[#f8757548]':'bg-amber-100 dark:bg-[#302e46]')} 
                     border border-solid border-slate-300 dark:border-slate-600 rounded-lg px-4 py-3 flex-auto flex flex-wrap items-center place-content-between ${props.completed?'opacity-75 dark:opacity-75':'hover:border-slate-400 dark:hover:border-slate-500'} transition-all duration-800`}>

@@ -156,7 +156,7 @@ const Login = () => {
                                 focus:outline-none focus:border-amber-500 dark:focus:border-amber-800 focus:ring-1 focus:ring-amber-500
                                 invalid:border-red-500 invalid:text-red-600
                                 focus:invalid:border-red-500 focus:invalid:ring-red-500 caret-amber-500 ${passError ? 'border-red-500 text-red-600 focus:border-red-500 focus:ring-red-500': 'focus:border-amber-500 dark:focus:border-amber-800 focus:ring-amber-500 border-slate-300 dark:border-slate-500'}
-                                `} onChange={onPassChange} maxLength={20}/>
+                                `} autoComplete='on' onChange={onPassChange} maxLength={20}/>
                                 <p className={`absolute bottom-[-19px] mt-2 ${passError ? 'visible': 'invisible'} dark:text-red-300 text-red-500 font-medium text-xs`}>
                                     {passErrorText}
                                 </p>

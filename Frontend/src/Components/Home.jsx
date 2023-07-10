@@ -42,8 +42,22 @@ const Home = () => {
     const auth_token = useSelector(state => state.user.token)
     const dispatch = useDispatch()
 
-
     const [todos, setTodos] = useState([]);
+
+    useEffect(() => {
+        getTodos();
+    }, []);
+
+    useEffect(() => {
+        socket.on("received_todo", () => {
+            getTodos();
+        })
+    }, [socket]);
+
+    useEffect(()=>{
+        if (!isLoggedIn)
+            savetoLocalStorage()
+    },[todos] )
 
     const getTodos = async () => {
         if (isLoggedIn) {
@@ -66,27 +80,9 @@ const Home = () => {
         }
     }
 
-
-    useEffect(() => {
-        getTodos();
-    }, []);
-
-    useEffect(() => {
-        socket.on("received_todo", () => {
-            getTodos(API_BASE);
-        })
-    }, [socket]);
-
-
     const savetoLocalStorage = () => {
         localStorage.setItem("todos", JSON.stringify(todos))
     }
-
-    useEffect(()=>{
-        if (!isLoggedIn)
-            savetoLocalStorage()
-    },[todos] )
-
 
     const addTaskCallback = async (title, due) => {
         const todo_obj = {
@@ -103,6 +99,7 @@ const Home = () => {
                 body: JSON.stringify(todo_obj)
             }).then(res => res.json());
             setTodos([...todos, data]);
+            getTodos();
             socket.emit("todo_change", todos);
         } else {
             todo_obj._id = todos?.length + 1
@@ -117,7 +114,7 @@ const Home = () => {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+auth_token
             }}).then(res => res.json());
-            getTodos(API_BASE);
+            getTodos();
             socket.emit("todo_change", todos);
         }
         else {
@@ -135,7 +132,7 @@ const Home = () => {
                 "Authorization": "Bearer "+auth_token
             }
             }).then(res => res.json());
-            getTodos(API_BASE);
+            getTodos();
             socket.emit("todo_change", todos);
         }
         else {
@@ -159,14 +156,13 @@ const Home = () => {
                 },
                 body: JSON.stringify(todo_obj)
             }).then(res => res.json());
-            getTodos(API_BASE);
+            getTodos();
             socket.emit("todo_change", todos);
         } else {
             let updated_todos = structuredClone(todos);
             updated_todos[id - 1].task_desc = title;
             updated_todos[id - 1].task_due = due;
-            console.log(updated_todos)
-            setTodos(updated_todos)
+            setTodos(updated_todos);
         }
     }
 
@@ -203,7 +199,7 @@ const Home = () => {
                             <TransitionGroup appear={true} component={transitionListItem} className="flex-col space-y-2">
                                 {completed?.map((t,index)=>(
                                     <CSSTransition key={index} timeout={300} classNames={"transition"}>
-                                        <TaskCard key={index}  id={t._id} title={t.task_desc} due={t.task_due} completed={t.is_complete} deleteTask={() => { onDeleteTask(t._id) }} completeTask={() => { toggleComplete(t._id) }} onUpdate={updateTask} />
+                                        <TaskCard key={index} id={t._id} title={t.task_desc} due={t.task_due} completed={t.is_complete} deleteTask={() => { onDeleteTask(t._id) }} completeTask={() => { toggleComplete(t._id) }} onUpdate={updateTask} />
                                     </CSSTransition>
                                 )).reverse()}
                             </TransitionGroup>

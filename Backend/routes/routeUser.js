@@ -61,10 +61,12 @@ router.post("/login", async (req, res) => {
 	if (isPasswordValid) {
 		const token = jwt.sign(
 			{
-				exp: Math.floor(Date.now() / 1000) + (60 * 60),
 				name: user.username,
 			},
-			TOKEN_SECRET
+			TOKEN_SECRET,
+			{
+				expiresIn: '12h'
+			}
 		)
 		return res.status(200).send({ token: token })
 	} else {
