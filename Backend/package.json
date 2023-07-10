@@ -11,7 +11,7 @@
     "ws": "^8.13.0"
   },
   "scripts": {
-    "start": "nodemon connect.js"
+    "start": "node connect.js"
   },
   "name": "backend",
   "version": "1.0.0",
