@@ -16,7 +16,9 @@ const io = new Server(server, {
 });
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: "*",
+}));
 
 const connectDatabase = (module.exports = () => {
     const params = {
