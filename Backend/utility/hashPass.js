@@ -1,4 +1,4 @@
-const crypto = require('node:crypto');
+const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const { secret_key, secret_iv, encryption_method } = require('./config');
 
