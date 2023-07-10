@@ -41,7 +41,7 @@ const Home = () => {
     const isLoggedIn = useSelector(state => state.user.isLoggedIn)
     const auth_token = useSelector(state => state.user.token)
     const dispatch = useDispatch()
-
+    const [isLoading, setLoading] = useState(true);
     const [todos, setTodos] = useState([]);
 
     useEffect(() => {
@@ -60,6 +60,7 @@ const Home = () => {
     },[todos] )
 
     const getTodos = async () => {
+        setLoading(true);
         if (isLoggedIn) {
             await fetch(API_BASE, {
                 method: "GET",
@@ -78,6 +79,7 @@ const Home = () => {
                 setTodos(local_todos)
             }
         }
+        setLoading(false);
     }
 
     const savetoLocalStorage = () => {
@@ -102,9 +104,9 @@ const Home = () => {
             getTodos();
             socket.emit("todo_change", todos);
         } else {
-            todo_obj._id = todos?.length + 1
-            todo_obj.is_complete = false
-            setTodos([...todos, todo_obj])
+            todo_obj._id = todos?.length + 1;
+            todo_obj.is_complete = false;
+            setTodos([...todos, todo_obj]);
         }
     }
 
@@ -136,7 +138,7 @@ const Home = () => {
             socket.emit("todo_change", todos);
         }
         else {
-            const updated_todos = structuredClone(todos);
+            let updated_todos = structuredClone(todos);
             updated_todos[id - 1].is_complete = !updated_todos[id - 1].is_complete;
             setTodos(updated_todos)
         }
@@ -180,14 +182,15 @@ const Home = () => {
     const completed = todos?.filter((t)=>t.is_complete)
 
     return (
-        <div className='antialiased min-h-screen h-full bg-slate-100 dark:bg-slate-900 transition-[background-color] duration-800 relative'>
+        <div className='antialiased min-h-screen h-full bg-slate-50 dark:bg-slate-900 transition-[background-color] duration-800 relative'>
             <Navbar signOut={onSignOutCallback} />
             <div className='px-4 sm:px-6'>
                 <div className='max-w-[1100px] w-full mx-auto py-8'>
                     <h1 className='font-semibold text-2xl text-slate-800 dark:text-slate-200'>Tasks</h1>
                 </div>
                 <div className='flex-col items-center space-y-2 max-w-[1100px] w-full mx-auto rounded-xl'>
-                        {todos?.length==0 ? <p className={`text-center pt-4 text-sm text-slate-400`}>No Tasks</p> : null}
+                        {!isLoading && todos?.length==0 ? <div className={`flex justify-center w-fill mt-16 text-sm text-slate-400`}>
+                            No tasks</div> : null}
                             <TransitionGroup appear={true} component={transitionListItem} className="flex-col space-y-2">
                                 {pending?.map((t,index)=>(
                                     <CSSTransition key={index} timeout={300} classNames={"transition"}>

@@ -32,8 +32,8 @@ export default function Dropdown(props) {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-100' : 'text-slate-500 dark:text-slate-200'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm font-bold`}
+                      active ? 'bg-slate-300 dark:bg-slate-600 text-slate-600 dark:text-slate-100' : 'text-slate-600 dark:text-slate-200'
+                    } group flex w-full items-center rounded-md sm:px-2 sm:py-2 px-3 py-3 text-sm font-bold`}
                   >
                     {active ? (
                       <UserIcon
@@ -55,16 +55,16 @@ export default function Dropdown(props) {
                   <button onClick={()=>props.signOut()}
                     className={`${
                       active ? 'bg-red-200 dark:bg-red-900 text-slate-600 dark:text-slate-300' : 'text-slate-500 dark:text-slate-300'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    } group flex w-full items-center rounded-md sm:px-2 sm:py-2 px-3 py-3 text-sm`}
                   >
                     {active ? (
                       <ArrowRightOnRectangleIcon
-                        className="mr-2 h-5 w-5"
+                        className="mr-2 h-4 w-4"
                         aria-hidden="true"
                       />
                     ) : (
                       <ArrowRightOnRectangleIcon
-                        className="mr-2 h-5 w-5"
+                        className="mr-2 h-4 w-4"
                         aria-hidden="true"
                       />
                     )}
@@ -78,8 +78,8 @@ export default function Dropdown(props) {
                 {({ active }) => (
                   <Link to="/login"
                     className={`${
-                      active ? 'bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-100' : 'text-slate-500 dark:text-slate-200'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm font-bold`}
+                      active ? 'bg-slate-300 dark:bg-slate-600 text-slate-800 dark:text-slate-100' : 'text-slate-700 dark:text-slate-200'
+                    } group flex w-full items-center rounded-md sm:px-2 sm:py-2 px-3 py-3 text-sm font-bold`}
                   >
                     {active ? (
                       <ArrowLeftOnRectangleIcon

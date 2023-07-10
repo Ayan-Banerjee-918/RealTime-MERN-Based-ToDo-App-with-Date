@@ -35,10 +35,16 @@ const Login = () => {
 
     const API_BASE = useSelector((state) => state.user.API_BASE)
     const redux_token = useSelector((state)=>state.user.token)
+    const isLoggedIn = useSelector((state)=>state.user.isLoggedIn)
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
     const {state} = useLocation()
+
+    useEffect(() => {
+        if (isLoggedIn)
+            navigate("/")
+    })
 
     const localStoragetoDB = async (auth_token) => {
         const local_todos = localStorageContainsTodos()

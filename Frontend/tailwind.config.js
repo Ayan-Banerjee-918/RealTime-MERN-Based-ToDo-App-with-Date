@@ -17,4 +17,7 @@ export default {
   },
   plugins: [],
   darkMode: 'class',
+  future: {
+    hoverOnlyWhenSupported: true,
+  }
 }

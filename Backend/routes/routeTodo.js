@@ -11,9 +11,7 @@ function authenticateToken(req, res, next) {
   
 	if (token == null) return res.sendStatus(401)
 	jwt.verify(token, TOKEN_SECRET, (err, user) => {
-  
 	  if (err) return res.sendStatus(403)
-  
 	  req.user = user
 	  next()
 	})
@@ -21,7 +19,6 @@ function authenticateToken(req, res, next) {
 
 router.get("/", authenticateToken, async (req, res) => {
     if (!req.user.name) return
-
     const missedTodos = await Todo.find({ username: req.user.name }).find({ task_due: { $lt: new Date().setHours(0, 0, 0, 0) } }).sort({ task_due: -1 });
     const newTodos = await Todo.find({ username: req.user.name }).sort({ task_due: -1 });
     const mTodo = new Set(missedTodos.map(({ id }) => id));

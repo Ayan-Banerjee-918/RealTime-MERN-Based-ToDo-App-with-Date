@@ -29,6 +29,7 @@ const authenticateToken = async (auth_token, API_BASE) => {
   if (res.status==200) {
       return res.json()
   } else if (res.status==403) {
+    throw new Error(403)
     toast('Session expired. Need to login again!')
   }
   else {
@@ -39,6 +40,7 @@ const authenticateToken = async (auth_token, API_BASE) => {
     store.dispatch(updateUsername(res?.username))
 }).catch(err=> {
   console.log(err)
+  console.log("Session Expired. Relogin")
 })
 }
 
