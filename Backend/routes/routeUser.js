@@ -44,28 +44,33 @@ router.post("/register", async (req, res) => {
 })
 
 router.post("/login", async (req, res) => {
-    const user = await User.findOne({
-		username: req.body.username,
-	})
-	if (!user) {
-		return res.sendStatus(402)
-	}
-	const isPasswordValid = await hashPass.checkValidity(
-		req.body.password,
-		user.password
-	)
-	if (isPasswordValid) {
-		const token = jwt.sign(
-			{
-				name: user.username,
-			},
-			TOKEN_SECRET,
-			{
-				expiresIn: '12h'
-			}
+	try {
+		const user = await User.findOne({
+			username: req.body.username,
+		})
+		if (!user) {
+			return res.sendStatus(402)
+		}
+		const isPasswordValid = await hashPass.checkValidity(
+			req.body.password,
+			user.password
 		)
-		return res.status(200).send({ token: token })
-	} else {
+		if (isPasswordValid) {
+			const token = jwt.sign(
+				{
+					name: user.username,
+				},
+				TOKEN_SECRET,
+				{
+					expiresIn: '12h'
+				}
+			)
+			return res.status(200).send({ token: token })
+		} else {
+			return res.sendStatus(403);
+		}
+	}
+	catch (err) {
 		return res.sendStatus(403);
 	}
 })
