@@ -16,10 +16,7 @@ const io = new Server(server, {
 });
 
 app.use(express.json());
-app.use(cors({
-    credentials: true,
-    origin: "*"
-}));
+app.use(cors());
 
 const connectDatabase = (module.exports = () => {
     const params = {
