@@ -13,7 +13,7 @@ const http = require('http');
 const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: "https://realtime-todo-mongoserver.onrender.com",
         methods: ["GET", "POST", "PUT"],
         credentials: true
     }
@@ -21,7 +21,7 @@ const io = new Server(server, {
 
 app.use(express.json());
 app.use(cors({
-    origin: "*",
+    origin: "https://realtime-todo-mongoserver.onrender.com",
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
     allowedHeaders: ["Content-Type", "Accept", "X-CSRF-TOKEN", "Authorization"]
