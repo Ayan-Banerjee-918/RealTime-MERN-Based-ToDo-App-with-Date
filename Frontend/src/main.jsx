@@ -17,9 +17,9 @@ const store = configureStore({
   }})
 
 
-const authenticateToken = async (auth_token, API_BASE) => {
+const authenticateToken =  (auth_token, API_BASE) => {
   if (!auth_token) return
-  await fetch(API_BASE + 'user/', { 
+  fetch(API_BASE + 'user/', { 
     method: "GET",
     headers: {
         "Content-Type": "application/json",
@@ -29,8 +29,8 @@ const authenticateToken = async (auth_token, API_BASE) => {
   if (res.status==200) {
       return res.json()
   } else if (res.status==403) {
+    toast('Session expired. Need to login again!') 
     throw new Error(403)
-    toast('Session expired. Need to login again!')
   }
   else {
     throw new Error(res.status)
@@ -46,8 +46,7 @@ const authenticateToken = async (auth_token, API_BASE) => {
 
 const API_BASE = store.getState().user.API_BASE
 const auth_token = store.getState().user.token
-await authenticateToken(auth_token, API_BASE)
-
+authenticateToken(auth_token, API_BASE)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
