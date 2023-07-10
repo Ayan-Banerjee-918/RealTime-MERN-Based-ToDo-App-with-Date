@@ -82,7 +82,7 @@ export default function MyModal(props) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full transform rounded-2xl text-left align-middle transition-all fixed bottom-6 sm:bottom-10 left-0 right-0">
+                <Dialog.Panel className="w-full transform rounded-2xl text-left align-middle transition-all fixed bottom-6 sm:bottom-12 left-0 right-0">
                 <form onSubmit={onFormSubmit} className={`container w-11/12 lg:w-4/5 mx-auto bg-slate-100 dark:bg-slate-800 border border-solid rounded-lg sm:px-4 sm:py-3 px-3 pb-3 pt-2 flex-auto flex flex-wrap items-center place-content-between border-slate-300 dark:border-slate-600 shadow-md transition-all delay-[95ms] duration-800 ease-in-out`}>
                         <div className="container flex flex-wrap sm:space-x-4 space-x-2 items-center w-full lg:w-3/5">
                             <div className={`container w-4 h-4 rounded-full inline-block border-2 border-solid border-slate-700 dark:border-slate-400`}>

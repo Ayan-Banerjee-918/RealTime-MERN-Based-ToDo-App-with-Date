@@ -24,6 +24,7 @@ const AESEncrypt = (data) => {
 const AESDecrypt = (data) => {
     const buff = Buffer.from(data, 'base64');
     const decipher = crypto.createDecipheriv(encryption_method, key, encryptionIV);
+    decrypt.setAutoPadding(false);
     return (
         decipher.update(buff.toString('utf8'), 'hex', 'utf8') +
         decipher.final('utf8')
