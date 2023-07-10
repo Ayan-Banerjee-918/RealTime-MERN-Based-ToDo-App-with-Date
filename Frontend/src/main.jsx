@@ -17,9 +17,9 @@ const store = configureStore({
   }})
 
 
-const authenticateToken =  (auth_token, API_BASE) => {
+const authenticateToken =  async (auth_token, API_BASE) => {
   if (!auth_token) return
-  fetch(API_BASE + 'user/', { 
+  await fetch(API_BASE + 'user/', { 
     method: "GET",
     headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const authenticateToken =  (auth_token, API_BASE) => {
 
 const API_BASE = store.getState().user.API_BASE
 const auth_token = store.getState().user.token
-authenticateToken(auth_token, API_BASE)
+await authenticateToken(auth_token, API_BASE)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
