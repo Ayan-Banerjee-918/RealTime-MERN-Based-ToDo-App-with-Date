@@ -112,6 +112,7 @@ const Home = () => {
     }
 
     const onDeleteTask = async (id) => {
+        setTodos((todos)=>todos.filter((todo)=>todo._id!=id))
         if (isLoggedIn) {
             await fetch(API_BASE + id, { method: "DELETE", headers: {
                 "Content-Type": "application/json",
@@ -120,7 +121,6 @@ const Home = () => {
             credentials: 'include'
         }).then(res => {
             if(res.status==200) {
-                setTodos((todos)=>todos.filter((todo)=>todo._id!=id))
                 socket.emit("todo_change", todos);
             }
             else {

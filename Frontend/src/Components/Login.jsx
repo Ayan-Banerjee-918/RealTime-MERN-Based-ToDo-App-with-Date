@@ -1,6 +1,5 @@
 import Navbar from './Navbar'
 import success from '../assets/success.png'
-import LoadingIcon from './LoadingIcon'
 import { useEffect } from 'react'
 import {Link, useNavigate, useLocation} from 'react-router-dom'
 import {useState} from 'react'
