@@ -10,7 +10,6 @@ import io from 'socket.io-client';
 import {useDispatch} from 'react-redux'
 import {updateToken, updateUsername, updateLoggedInState} from '../store/userStore'
 import toast from 'react-hot-toast'
-import LoadingIcon from './LoadingIcon'
 
 const transitionListItem = styled.div`
 .transition-enter {
@@ -212,7 +211,14 @@ const Home = () => {
                     <h1 className='font-semibold text-2xl text-slate-800 dark:text-slate-200'>Tasks</h1>
                 </div>
                 <div className='flex-col items-center space-y-2 max-w-[1100px] w-full mx-auto rounded-xl'>
-                        {!isLoading && todos?.length==0 ? <div className={`flex justify-center w-fill mt-16 text-sm text-slate-400`}>No task</div> : (isLoading ? <div className={`flex justify-center w-fill mt-16 text-sm text-slate-400`}><LoadingIcon colour="slate" lightShade="300" darkShade="500" size="6"/></div>: '')}
+                        {!isLoading && todos?.length==0 ? <div className={`flex justify-center w-fill mt-16 text-sm text-slate-400`}>No task</div> : (isLoading ? <div className={`flex justify-center w-fill mt-16 text-sm text-slate-400`}><svg className={`h-6 w-6 animate-spin`} viewBox="3 3 18 18">
+                                            <path
+                                            className={`fill-slate-300 dark:fill-slate-500`}
+                                            d="M16.9497 7.05015C14.2161 4.31648 9.78392 4.31648 7.05025 7.05015C6.65973 7.44067 6.02656 7.44067 5.63604 7.05015C5.24551 6.65962 5.24551 6.02646 5.63604 5.63593C9.15076 2.12121 14.8492 2.12121 18.364 5.63593C18.7545 6.02646 18.7545 6.65962 18.364 7.05015C17.9734 7.44067 17.3403 7.44067 16.9497 7.05015Z"></path>
+                                        </svg>
+                                    </div>
+                                    :
+                                     '')}
                             <TransitionGroup appear={true} component={transitionListItem} className="flex-col space-y-2">
                                 {pending?.map((t,index)=>(
                                     <CSSTransition key={index} timeout={300} classNames={"transition"}>
