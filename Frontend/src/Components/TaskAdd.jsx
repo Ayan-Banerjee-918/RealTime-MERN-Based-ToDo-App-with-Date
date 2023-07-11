@@ -40,7 +40,7 @@ const TaskAdd = (props) => {
                 <input className="px-2 py-2 w-full bg-inherit focus:outline-none text-amber-800 dark:text-slate-200 dark:placeholder:text-slate-300 font-medium rounded-md justify-self-stretch" placeholder="Add Task" type="text" name="task" onChange={handleTitleChange} maxLength={80}/>
             </div>
         </div>
-        <div className="container flex flex-wrap sm:space-x-3 space-x-1 items-center basis-3/6">
+        <div className="container flex flex-wrap gap-1 items-center basis-3/6">
             <div className="basis-3/4">
                 <Datepicker
                     key={key}
