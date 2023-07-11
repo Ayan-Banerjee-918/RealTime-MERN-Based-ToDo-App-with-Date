@@ -170,7 +170,7 @@ const Login = () => {
                             <div className="flex gap-4 flex-col justify-center">
                             <button type='submit' className="flex w-full justify-center gap-2 mt-4 px-6 py-2 border-2 border-solid rounded-lg border-amber-400 hover:border-amber-500 bg-amber-500 hover:bg-amber-600 dark:bg-[#A8750F] font-semibold text-sm text-slate-50 dark:text-slate-50 dark:border-[#E8A215] dark:hover:bg-[#694909] dark:hover:border-[#E8A215] transition-all duration-300">
                                 {loading?
-                                <LoadingIcon color="amber" lightShade="50" darkShade="100" size="5"/>:
+                                <LoadingIcon colour="amber" lightShade="50" darkShade="100" size="5"/>:
                                 'Log in'}
                             </button>
                             <Link to="/" className="flex w-full justify-center px-6 py-2 border-2 border-solid rounded-lg border-slate-50 hover:border-slate-300 bg-slate-200 dark:bg-slate-700 font-semibold text-sm text-slate-500 dark:text-slate-200 dark:border-slate-600 dark:hover:bg-slate-600 dark:hover:border-slate-500 transition-all duration-300">
