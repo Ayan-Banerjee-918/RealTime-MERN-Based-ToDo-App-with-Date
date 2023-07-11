@@ -1,5 +1,4 @@
 import success from '../assets/success.png'
-import LoadingIcon from './LoadingIcon'
 import { useEffect, useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -144,7 +143,11 @@ const Signup = () => {
                             
                             <button type='submit' className="flex w-full justify-center gap-2 mt-4 px-6 py-2 border-2 border-solid rounded-lg border-amber-400 hover:border-amber-500 bg-amber-500 hover:bg-amber-600 dark:bg-[#A8750F] font-semibold text-sm text-slate-50 dark:text-slate-50 dark:border-[#E8A215] dark:hover:bg-[#694909] dark:hover:border-[#E8A215] transition-all duration-300">
                             {loading ? 
-                                <LoadingIcon color='amber' size="5"/> :
+                                <svg className={`h-5 w-5 animate-spin`} viewBox="3 3 18 18">
+                                <path
+                                className={`fill-amber-50 dark:fill-amber-100`}
+                                d="M16.9497 7.05015C14.2161 4.31648 9.78392 4.31648 7.05025 7.05015C6.65973 7.44067 6.02656 7.44067 5.63604 7.05015C5.24551 6.65962 5.24551 6.02646 5.63604 5.63593C9.15076 2.12121 14.8492 2.12121 18.364 5.63593C18.7545 6.02646 18.7545 6.65962 18.364 7.05015C17.9734 7.44067 17.3403 7.44067 16.9497 7.05015Z"></path>
+                            </svg> :
                                 'Sign up'
                             }
                             </button>
