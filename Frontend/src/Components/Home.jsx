@@ -10,6 +10,7 @@ import io from 'socket.io-client';
 import {useDispatch} from 'react-redux'
 import {updateToken, updateUsername, updateLoggedInState} from '../store/userStore'
 import toast from 'react-hot-toast'
+import LoadingIcon from './LoadingIcon'
 
 const transitionListItem = styled.div`
 .transition-enter {
@@ -211,8 +212,7 @@ const Home = () => {
                     <h1 className='font-semibold text-2xl text-slate-800 dark:text-slate-200'>Tasks</h1>
                 </div>
                 <div className='flex-col items-center space-y-2 max-w-[1100px] w-full mx-auto rounded-xl'>
-                        {!isLoading && todos?.length==0 ? <div className={`flex justify-center w-fill mt-16 text-sm text-slate-400`}>
-                            No tasks</div> : null}
+                        {!isLoading && todos?.length==0 ? <div className={`flex justify-center w-fill mt-16 text-sm text-slate-400`}>No task</div> : (isLoading ? <div className={`flex justify-center w-fill mt-16 text-sm text-slate-400`}><LoadingIcon size="6"/></div>: '')}
                             <TransitionGroup appear={true} component={transitionListItem} className="flex-col space-y-2">
                                 {pending?.map((t,index)=>(
                                     <CSSTransition key={index} timeout={300} classNames={"transition"}>
