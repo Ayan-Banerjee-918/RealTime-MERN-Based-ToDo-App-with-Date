@@ -41,6 +41,7 @@ const TaskAdd = (props) => {
             </div>
         </div>
         <div className="container flex flex-wrap sm:space-x-3 space-x-1 items-center">
+            <div className="basis-3/4">
                 <Datepicker
                     key={key}
                     useRange={false}
@@ -76,7 +77,8 @@ const TaskAdd = (props) => {
                     }
                 }
                 />
-        <button type='submit' className="px-6 py-2 border border-solid rounded-lg bg-slate-200 dark:bg-slate-700 font-medium text-sm text-slate-600 dark:text-slate-200 hover:border-slate-400 dark:border-slate-500 dark:hover:border-slate-400 transition-all duration-300">Save</button>
+            </div>
+        <button type='submit' className="px-6 py-2 basis-1/4 border border-solid rounded-lg bg-slate-200 dark:bg-slate-700 font-medium text-sm text-slate-600 dark:text-slate-200 hover:border-slate-400 dark:border-slate-500 dark:hover:border-slate-400 transition-all duration-300">Save</button>
         </div>
     </form>
     </>
