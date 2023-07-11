@@ -103,7 +103,6 @@ const Home = () => {
                 credentials: 'include'
             }).then(res => res.json());
             setTodos([...todos, data]);
-            getTodos();
             socket.emit("todo_change", todos);
         } else {
             todo_obj._id = todos?.length + 1;
@@ -119,9 +118,15 @@ const Home = () => {
                 "Authorization": "Bearer "+auth_token
             },
             credentials: 'include'
-        }).then(res => res.json());
-            getTodos();
-            socket.emit("todo_change", todos);
+        }).then(res => {
+            if(res.status==200) {
+                setTodos((todos)=>todos.filter((todo)=>todo._id!=id))
+                socket.emit("todo_change", todos);
+            }
+            else {
+                toast.error("Error deleting task")
+            }
+        });
         }
         else {
             let updated_todos = structuredClone(todos);
@@ -139,7 +144,7 @@ const Home = () => {
             },
             credentials: 'include',
             }).then(res => res.json());
-            getTodos();
+            setTodos((todos)=>todos.map((todo)=>{ if(todo._id==id) todo.is_complete=!todo.is_complete; return todo;}))
             socket.emit("todo_change", todos);
         }
         else {
@@ -163,9 +168,14 @@ const Home = () => {
                 },
                 body: JSON.stringify(todo_obj),
                 credentials: 'include'
-            }).then(res => res.json());
-            getTodos();
-            socket.emit("todo_change", todos);
+            }).then(res => {
+                if(res.status==200) {
+                    setTodos((todos)=>todos.map((todo)=>{ if(todo._id==id) {todo.task_desc=title; todo.task_due=due} return todo;}))
+                    socket.emit("todo_change", todos);
+                } else {
+                    toast.error("Error updating task")
+                }
+            });
         } else {
             let updated_todos = structuredClone(todos);
             updated_todos[id - 1].task_desc = title;

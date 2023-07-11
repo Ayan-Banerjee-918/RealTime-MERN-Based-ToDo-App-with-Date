@@ -94,6 +94,7 @@ const Login = () => {
             return
         }
         
+        setLoading(true)
         await fetch(API_BASE + 'user/login', { 
             method: "POST",
             headers: {
@@ -132,8 +133,6 @@ const Login = () => {
             console.log("Error: "+err)
         }); 
     }
-
-    
 
     return (
         <div className='antialiased min-h-screen h-full dark:bg-slate-900 transition-[background-color] duration-800 relative bg-slate-200'>
