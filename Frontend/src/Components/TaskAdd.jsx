@@ -40,7 +40,7 @@ const TaskAdd = (props) => {
                 <input className="px-2 py-2 w-full bg-inherit focus:outline-none text-amber-800 dark:text-slate-200 dark:placeholder:text-slate-300 font-medium rounded-md justify-self-stretch" placeholder="Add Task" type="text" name="task" onChange={handleTitleChange} maxLength={80}/>
             </div>
         </div>
-        <div className="container flex flex-wrap sm:space-x-4 space-x-1 items-center sm:w-3/5 lg:w-1/5 md:w-2/5 xl:w-fit  w-4/6">
+        <div className="container flex flex-wrap sm:space-x-3 space-x-1 items-center sm:w-3/5 lg:w-1/5 md:w-2/5 xl:w-fit  w-4/6">
                 <Datepicker
                     key={key}
                     useRange={false}
@@ -76,8 +76,8 @@ const TaskAdd = (props) => {
                     }
                 }
                 />
-        </div>
         <button type='submit' className="px-6 py-2 border border-solid rounded-lg bg-slate-200 dark:bg-slate-700 font-medium text-sm text-slate-600 dark:text-slate-200 hover:border-slate-400 dark:border-slate-500 dark:hover:border-slate-400 transition-all duration-300">Save</button>
+        </div>
     </form>
     </>
     )
