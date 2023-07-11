@@ -1,5 +1,5 @@
 const LoadingIcon = (props) => {
-    const color = "fill-"+props.color+"-100"
+    const color = `fill-${props.color?props.color:'amber'}-100 dark:fill-${props.color?props.color:'slate'}-200`
     return (
         <svg className={`${color} h-${props.size} w-${props.size} animate-spin ${props.isLoading ? '':'collapse'}`} viewBox="3 3 18 18">
     <path
