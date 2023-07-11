@@ -138,14 +138,20 @@ const Home = () => {
 
     const toggleComplete = async (id) => {
         if (isLoggedIn) {
+            setTodos((todos)=>todos.map((todo)=>{ if(todo._id==id) todo.is_complete=!todo.is_complete; return todo;}))
             await fetch(API_BASE + 'completeTask/' + id, { method: "PUT",headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+auth_token
             },
             credentials: 'include',
-            }).then(res => res.json());
-            setTodos((todos)=>todos.map((todo)=>{ if(todo._id==id) todo.is_complete=!todo.is_complete; return todo;}))
-            socket.emit("todo_change", todos);
+            }).then(res => {
+                if (res.status != 200) {
+                    setTodos((todos)=>todos.map((todo)=>{ if(todo._id==id) todo.is_complete=!todo.is_complete; return todo;}))
+                    toast.error("Error updating task")
+            } else {
+                socket.emit("todo_change", todos);
+            }
+            });
         }
         else {
             let updated_todos = structuredClone(todos);
