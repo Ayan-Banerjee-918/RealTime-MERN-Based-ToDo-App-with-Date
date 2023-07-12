@@ -221,15 +221,13 @@ const Home = () => {
                                      '')}
                             <TransitionGroup appear={true} component={transitionListItem} className="flex-col space-y-2">
                                 {pending?.map((t,index)=>(
-                                    <CSSTransition key={index} timeout={300} classNames={"transition"}>
+                                    <CSSTransition key={t._id} timeout={300} classNames={"transition"}>
                                         <TaskCard key={index} id={t._id} title={t.task_desc} due={t.task_due} completed={t.is_complete} deleteTask={() => { onDeleteTask(t._id) }} completeTask={() => { toggleComplete(t._id) }} onUpdate={updateTask} />
                                     </CSSTransition>
                                 )).reverse()}
-                            </TransitionGroup>
-                            <h3 className={`font-semibold text-1xl text-slate-600 dark:text-slate-200 pt-4 pb-2 ${completed?.length == 0 ? 'collapse': '' }`}>Completed</h3>
-                            <TransitionGroup appear={true} component={transitionListItem} className="flex-col space-y-2">
+                            <h3 key={-1} className={`font-semibold text-1xl text-slate-600 dark:text-slate-200 pt-4 pb-2 ${completed?.length == 0 ? 'collapse': '' }`}>Completed</h3>
                                 {completed?.map((t,index)=>(
-                                    <CSSTransition key={index} timeout={300} classNames={"transition"}>
+                                    <CSSTransition key={t._id} timeout={300} classNames={"transition"}>
                                         <TaskCard key={index} id={t._id} title={t.task_desc} due={t.task_due} completed={t.is_complete} deleteTask={() => { onDeleteTask(t._id) }} completeTask={() => { toggleComplete(t._id) }} onUpdate={updateTask} />
                                     </CSSTransition>
                                 )).reverse()}
