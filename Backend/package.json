@@ -13,6 +13,9 @@
   "scripts": {
     "start": "node connect.js"
   },
+  "overrides": {
+    "semver": "^7.5.3"
+  },
   "name": "backend",
   "version": "1.0.0",
   "main": "server.js",

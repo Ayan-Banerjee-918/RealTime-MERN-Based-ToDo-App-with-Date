@@ -11,6 +11,11 @@ node_modules
 dist
 dist-ssr
 *.local
+android
+assets
+icons
+*.webmanifest
+capacitor.config.json
 
 # Editor directories and files
 .vscode/*
